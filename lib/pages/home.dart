@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crudoperation/pages/empolyee.dart';
 import 'package:crudoperation/service/database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -52,27 +53,39 @@ class _HomepageState extends State<Homepage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     "Name: " + ds["Name"],
                                     style: TextStyle(fontSize: 20.0),
                                   ),
+                                  Spacer(),
                                   GestureDetector(
                                     onTap: () {
                                       namecontroller.text = ds["Name"];
                                       agecontroller.text = ds["Age"];
                                       locationcontroller.text = ds["Location"];
-                                      String id = ds
-                                          .id; 
+                                      String id = ds.id;
                                       EditEmployeeDetail(id);
                                     },
                                     child: Icon(
                                       Icons.edit,
                                       color: Colors.blue,
                                     ),
-                                  )
+                                  ),
+                                  SizedBox(
+                                    width: 5.0,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () async {
+                                      await DatabaseMethodas()
+                                          .deleteEmployeeDeatil(ds
+                                              .id); // Use ds.id for document ID
+                                    },
+                                    child: Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                    ),
+                                  ),
                                 ],
                               ),
                               Text(
