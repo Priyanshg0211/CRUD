@@ -12,6 +12,10 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  TextEditingController namecontroller = new TextEditingController();
+  TextEditingController agecontroller = new TextEditingController();
+  TextEditingController locationcontroller = new TextEditingController();
+
   Stream? EmployeeStream;
 
   getontheload() async {
@@ -47,9 +51,29 @@ class _HomepageState extends State<Homepage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "Name: " + ds["Name"],
-                                style: TextStyle(fontSize: 20.0),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Name: " + ds["Name"],
+                                    style: TextStyle(fontSize: 20.0),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      namecontroller.text = ds["Name"];
+                                      agecontroller.text = ds["Age"];
+                                      locationcontroller.text = ds["Location"];
+                                      String id = ds
+                                          .id; 
+                                      EditEmployeeDetail(id);
+                                    },
+                                    child: Icon(
+                                      Icons.edit,
+                                      color: Colors.blue,
+                                    ),
+                                  )
+                                ],
                               ),
                               Text(
                                 "Age: " + ds["Age"],
@@ -93,4 +117,122 @@ class _HomepageState extends State<Homepage> {
       ),
     );
   }
+
+  Future EditEmployeeDetail(String id) => showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+            content: Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(Icons.cancel),
+                      ),
+                      SizedBox(width: 60.0),
+                      Text(
+                        "Edit Details",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Name",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: 10.0),
+                    decoration: BoxDecoration(
+                      border: Border.all(),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextField(
+                      controller: namecontroller,
+                      decoration: InputDecoration(border: InputBorder.none),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                  Text(
+                    "Age",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: 10.0),
+                    decoration: BoxDecoration(
+                      border: Border.all(),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextField(
+                      controller: agecontroller,
+                      decoration: InputDecoration(border: InputBorder.none),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                  Text(
+                    "Location",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: 10.0),
+                    decoration: BoxDecoration(
+                      border: Border.all(),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextField(
+                      controller: locationcontroller,
+                      decoration: InputDecoration(border: InputBorder.none),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Center(
+                      child: ElevatedButton(
+                          onPressed: () async {
+                            Map<String, dynamic> updateInfo = {
+                              "Name": namecontroller.text,
+                              "Age": agecontroller.text,
+                              "Id": id,
+                              "Location": locationcontroller.text,
+                            };
+                            await DatabaseMethodas()
+                                .updateEmployeeDeatil(id, updateInfo)
+                                .then((value) {
+                              Navigator.pop(context);
+                            });
+                          },
+                          child: Text("Update")))
+                ],
+              ),
+            ),
+          ));
 }
