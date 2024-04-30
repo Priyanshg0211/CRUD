@@ -24,6 +24,38 @@ class _HomepageState extends State<Homepage> {
         backgroundColor: Colors.blue,
       ),
       body: Container(
+        margin: EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
+        child: Column(
+          children: [
+            Material(
+              elevation: 5.0,
+              child: Container(
+                padding: EdgeInsets.all(20),
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Name: Priyansh Gupta",
+                      style: TextStyle(fontSize: 20.0),
+                    ),
+                    Text(
+                      "Age: 19",
+                      style: TextStyle(fontSize: 20.0),
+                    ),
+                    Text(
+                      "Location: India",
+                      style: TextStyle(fontSize: 20.0),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
