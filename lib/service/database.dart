@@ -8,4 +8,8 @@ class DatabaseMethodas {
         .doc(id)
         .set(employeeInfoMap);
   }
+
+  Future<Stream<QuerySnapshot>> getEmployeeDetails() async {
+    return await FirebaseFirestore.instance.collection("Employee").snapshots();
+  }
 }
