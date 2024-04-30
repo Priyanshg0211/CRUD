@@ -1,3 +1,4 @@
+import 'package:crudoperation/pages/empolyee.dart';
 import 'package:flutter/material.dart';
 
 class Homepage extends StatefulWidget {
@@ -11,16 +12,20 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () {} , child: Icon(Icons.add),),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => employee()));
+        },
+        child: Icon(Icons.add),
+      ),
       appBar: AppBar(
         title: Text('Flutter Firebase'),
         backgroundColor: Colors.blue,
       ),
       body: Container(
         child: Column(
-          children: [
-
-          ],
+          children: [],
         ),
       ),
     );
