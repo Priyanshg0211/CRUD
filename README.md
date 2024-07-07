@@ -37,4 +37,5 @@ Select a specific employee record from the list and choose the update option. Mo
 * Deleting Records:
 Choose a specific employee record to delete and confirm the deletion. The application should remove the selected employee record from the Firebase database.
 
+Happy Coding !
 
