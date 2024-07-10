@@ -36,6 +36,3 @@ View existing employee records fetched from the Firebase database. The applicati
 Select a specific employee record from the list and choose the update option. Modify the employee details and save the changes to Firebase.
 * Deleting Records:
 Choose a specific employee record to delete and confirm the deletion. The application should remove the selected employee record from the Firebase database.
-
-Happy Coding !
-
